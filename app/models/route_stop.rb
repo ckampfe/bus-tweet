@@ -1,0 +1,1 @@
+class RouteStop < ActiveRecord::Base

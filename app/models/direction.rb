@@ -1,0 +1,1 @@
+class Direction < ActiveRecord::Base
