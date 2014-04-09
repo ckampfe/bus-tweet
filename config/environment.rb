@@ -20,11 +20,8 @@ APP_ROOT = Pathname.new(File.expand_path('../../', __FILE__))
 CONFIG   = Pathname.new(File.expand_path("#{APP_ROOT}/config"))
 APP_NAME = APP_ROOT.basename.to_s
 
-Dir[APP_ROOT.join('app', 'controllers', '*.rb')].each { |file| require file }
-Dir[APP_ROOT.join('app', 'helpers', '*.rb')].each { |file| require file }
-
-require APP_ROOT.join('config', 'database')   # db
 require APP_ROOT.join('config', 'load_keys') # keys
+require APP_ROOT.join('config', 'database')   # db
 
 # API stuff
 T = Twitter::Streaming::Client.new do |config|
@@ -35,3 +32,7 @@ T = Twitter::Streaming::Client.new do |config|
 end
 
 CTA_KEY = ENV['CTA_API_KEY']
+
+Dir[APP_ROOT.join('app', 'controllers', '*.rb')].each { |file| require file }
+Dir[APP_ROOT.join('app', 'helpers', '*.rb')].each { |file| require file }
+
