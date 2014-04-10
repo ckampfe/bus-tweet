@@ -17,6 +17,8 @@ module TransitHelpers
   end
 
   private
+  # heavily inspired by the Twitter gem:
+  # https://github.com/sferik/twitter/blob/master/lib/twitter/streaming/client.rb#L119
   def urlize(params)
     params.map do |pair|
       [pair[:key], URI.encode(pair[:val])].join('=')
