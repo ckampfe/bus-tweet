@@ -45,4 +45,26 @@ namespace :get do
       end
     end
   end
+
+  desc "get stops for CTA combination route-directions"
+  task :stops do
+    Route.all.each do |route|
+      route.directions.each do |direction|
+        ### get ###
+        stops = Stop.get([{ :key => 'rt', :val => route[:number] },
+                          { :key => 'dir', :val => direction[:name] }])
+
+        ### make pretty ###
+        stops = stops['bustime_response']['stop']
+        nice_stops = stops.map do |stop|
+          { :number => stop['stpid'], :name => stop['stpnm'] }
+        end
+
+        ### db ###
+        nice_stops.each do |stop|
+          route.stops << Stop.find_or_create_by!(:number => stop[:number], :name => stop[:name])
+        end
+      end
+    end
+  end
 end
