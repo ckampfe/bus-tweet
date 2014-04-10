@@ -9,8 +9,8 @@ gem 'sinatra-contrib'
 gem 'thin'
 gem 'shotgun'
 
-gem 'activesupport'
-gem 'activerecord'
+gem 'activesupport', '4.0.4'
+gem 'activerecord', '4.0.4'
 
 gem 'rake'
 
