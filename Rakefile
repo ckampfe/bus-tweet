@@ -13,14 +13,15 @@ end
 namespace :get do
   desc "get CTA routes"
   task :routes do
-    # get routes from CTA
+    ### get ###
     routes = Route.get['bustime_response']['route']
 
-    # make nice
+    ### make pretty ###
     nice_routes = routes.map do |route|
       { :number => route['rt'], :name => route['rtnm'] }
     end
 
+    ### db ###
     nice_routes.each do |route|
       Route.create!(:name => route[:name], :number => route[:number])
     end
@@ -30,13 +31,15 @@ namespace :get do
   task :directions do
     routes = Route.all
     routes.each do |route|
-      # for each route, get directions
-      directions = Direction.get(:query_param => 'rt', :value => route[:number])['bustime_response']['dir']
+      ### get ###
+      directions = Direction.get(:query_param => 'rt', :value => route[:number])
 
+      ### make pretty ###
+      directions = ['bustime_response']['dir']
       # conditionally assign if single result
       directions = [directions] if directions.class == String
 
-      # add directions to db or find them, and associate with routes
+      ### db ###
       directions.each do |direction|
         route.directions << Direction.find_or_create_by(:name => direction)
       end
