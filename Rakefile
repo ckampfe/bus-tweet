@@ -35,7 +35,7 @@ namespace :get do
       directions = Direction.get([{ :key => 'rt', :val => route[:number] }])
 
       ### make pretty ###
-      directions = ['bustime_response']['dir']
+      directions = directions['bustime_response']['dir']
       # conditionally assign if single result
       directions = [directions] if directions.class == String
 
@@ -56,8 +56,14 @@ namespace :get do
 
         ### make pretty ###
         stops = stops['bustime_response']['stop']
-        nice_stops = stops.map do |stop|
-          { :number => stop['stpid'], :name => stop['stpnm'] }
+        # if there is more than one stop, it's an array
+        if stops.is_a?(Array)
+          nice_stops = stops.map do |stop|
+            { :number => stop["stpid"], :name => stop["stpnm"] }
+          end
+        else
+          # otherwise it's a hash of the stop
+          nice_stops = [{ :number => stops["stpid"], :name => stops["stpnm"] }]
         end
 
         ### db ###
