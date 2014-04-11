@@ -32,7 +32,7 @@ namespace :get do
     routes = Route.all
     routes.each do |route|
       ### get ###
-      directions = Direction.get(:query_param => 'rt', :value => route[:number])
+      directions = Direction.get([{ :key => 'rt', :val => route[:number] }])
 
       ### make pretty ###
       directions = ['bustime_response']['dir']
