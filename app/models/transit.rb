@@ -8,7 +8,6 @@ module TransitHelpers
 
     if params
       url = BASE_URL + self.resource + '?' + 'key=' + CTA_KEY + '&' + urlize(params)
-      puts url
     else
       url = BASE_URL + self.resource + '?' + 'key=' + CTA_KEY
     end
