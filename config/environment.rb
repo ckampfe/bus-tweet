@@ -11,7 +11,7 @@ require 'active_record'
 require 'logger'
 require 'sinatra'
 require 'sinatra/reloader' if development?
-require 'sidekiq'
+require 'concurrent'
 require 'twitter'
 
 APP_ROOT = Pathname.new(File.expand_path('../../', __FILE__))

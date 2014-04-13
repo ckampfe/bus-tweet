@@ -15,7 +15,7 @@ gem 'activerecord', '4.0.4'
 gem 'rake'
 
 gem 'twitter', '~> 5.8'
-gem 'sidekiq'
+gem 'concurrent-ruby'
 
 group :test do
   gem 'faker'
