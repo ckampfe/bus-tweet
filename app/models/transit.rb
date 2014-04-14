@@ -6,7 +6,7 @@ module TransitHelpers
     # [{ :key => 'rt', :val => '20' },
     #  { :key => 'dir', :val => "East Bound" }]
 
-    if params
+    if !params.empty?
       url = BASE_URL + self.resource + '?' + 'key=' + CTA_KEY + '&' + urlize(params)
     else
       url = BASE_URL + self.resource + '?' + 'key=' + CTA_KEY
