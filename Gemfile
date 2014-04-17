@@ -17,6 +17,9 @@ gem 'rake'
 gem 'twitter', '~> 5.8'
 gem 'concurrent-ruby'
 
+gem 'fuzzy_match'
+gem 'amatch'
+
 group :test do
   gem 'faker'
   gem 'rspec'

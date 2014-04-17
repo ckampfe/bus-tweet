@@ -74,3 +74,35 @@ namespace :get do
     end
   end
 end
+
+namespace :bm do
+  require 'benchmark'
+  require 'fuzzy_match'
+  require 'amatch'
+
+  desc "benchmark fuzzy_match"
+  task :fuzzy_match, :db_load, :iterations do |t, args|
+    i = args[:iterations] || 10 # default iterations
+    QUERY_1 = "Chcgo & Frnklin"
+    STOPS = Stop.all
+
+    def rubybm
+      fz = FuzzyMatch.new(STOPS, :read => :name)
+      fz.find(QUERY_1)
+    end
+
+    def rubybm_c
+      FuzzyMatch.engine = :amatch
+      fz = FuzzyMatch.new(STOPS, :read => :name)
+      fz.find(QUERY_1)
+    end
+
+
+    Benchmark.bm do |x|
+      x.report("ruby (solo)") { i.times do rubybm end }
+      x.report("ruby w/ C exts") { i.times do rubybm_c end }
+      # x.report("ruby w/ C exts and PG fuzzy cull")
+    end
+
+  end
+end
