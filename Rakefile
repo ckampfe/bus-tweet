@@ -82,7 +82,7 @@ namespace :bm do
 
   desc "benchmark fuzzy_match"
   task :fuzzy_match, :db_load, :iterations do |t, args|
-    i = args[:iterations] || 10 # default iterations
+    i = args[:iterations] || 30 # default iterations
     QUERY_1 = "Chcgo & Frnklin"
     STOPS = Stop.all
 
