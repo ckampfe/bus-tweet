@@ -1,4 +1,5 @@
 require APP_ROOT.join('app', 'models', 'transit')
+require APP_ROOT.join('app', 'models', 'matcher')
 
 class Prediction # CURRENTLY NOT INHERITING FROM AR::BASE
 
@@ -9,11 +10,13 @@ class Prediction # CURRENTLY NOT INHERITING FROM AR::BASE
   end
 
   extend TransitHelpers
+  extend Matcher
 
   ### instance ###
-  attr_reader :data, :time
-  def initialize(stop_id, num_of_preds="4")
-    @data = prettify(Prediction.get([{ :key => 'stpid', :val => stop_id }, { :key => 'top', :val => num_of_preds }])['bustime_response']['prd'])
+  attr_reader :data, :time, :stop
+  def initialize(name_query, num_of_preds="4")
+    @stop = Matcher.closest(name_query)
+    @data = prettify(Prediction.get([{ :key => 'stpid', :val => stop[:number] }, { :key => 'top', :val => num_of_preds }])['bustime_response']['prd'])
 
     @time = SystemTime.get
   end

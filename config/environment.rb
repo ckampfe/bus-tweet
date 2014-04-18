@@ -14,6 +14,7 @@ require 'sinatra/reloader' if development?
 require 'concurrent'
 require 'twitter'
 require 'fuzzy_match'
+require 'amatch'
 
 APP_ROOT = Pathname.new(File.expand_path('../../', __FILE__))
 CONFIG   = Pathname.new(File.expand_path("#{APP_ROOT}/config"))
