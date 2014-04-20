@@ -13,12 +13,13 @@ class Prediction # CURRENTLY NOT INHERITING FROM AR::BASE
   extend Matcher
 
   ### instance ###
-  attr_reader :data, :time, :stop
+  attr_reader :data, :system_time, :stop
   def initialize(name_query, num_of_preds="4")
     @stop = Matcher.closest(name_query)
-    @data = prettify(Prediction.get([{ :key => 'stpid', :val => stop[:number] }, { :key => 'top', :val => num_of_preds }])['bustime_response']['prd'])
 
-    @time = SystemTime.get
+    @data = prettify(Prediction.get([{ :key => 'stpid', :val => stop[:number] },
+                                     { :key => 'top', :val => num_of_preds }])['bustime_response']['prd'])
+    @system_time = SystemTime.get['bustime_response']['tm']
   end
 
   private

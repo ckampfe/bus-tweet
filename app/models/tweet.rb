@@ -12,9 +12,9 @@ class Tweet
         # end
 
         if self.mention?(tweet, "kilophoton")
-          puts "KILOPHOTON MENTION"
+          puts "ACCOUNT MENTIONED"
           stripped_tweet = self.strip_screen_name(tweet.text)
-          normalized_tweet = { :screen_name => tweet.screen_name,
+          normalized_tweet = { :screen_name => tweet.user.screen_name,
                                :text => stripped_tweet }
           yield normalized_tweet
         end
@@ -23,6 +23,8 @@ class Tweet
   end
 
   def self.reply(tweet)
+    puts "got into Tweet.reply"
+    puts tweet
   end
 
   private

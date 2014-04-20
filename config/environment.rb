@@ -35,4 +35,3 @@ CTA_KEY = ENV['CTA_API_KEY']
 
 Dir[APP_ROOT.join('app', 'controllers', '*.rb')].each { |file| require file }
 Dir[APP_ROOT.join('app', 'helpers', '*.rb')].each { |file| require file }
-
