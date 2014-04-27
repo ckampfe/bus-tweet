@@ -5,6 +5,6 @@ module Matcher
 
   def self.closest(query)
     FuzzyMatch.engine = :amatch # C extensions
-    FuzzyMatch.new(STOPS, :read => :name).find(query)
+    FuzzyMatch.new(STOPS, :read => :name).find_best(query)
   end
 end

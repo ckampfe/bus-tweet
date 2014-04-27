@@ -1,18 +1,11 @@
 class Tweet
   def self.stream
-    puts "streaming..."
 
     T.user(:replies => 'all') do |obj|
-      puts obj
       if obj.is_a? Twitter::Tweet
         tweet = obj
-      # puts obj.text if obj.is_a?(Twitter::Tweet)
-        # obj.user_mentions.each do |mention|
-        #   puts mention.screen_name
-        # end
 
-        if self.mention?(tweet, "kilophoton")
-          puts "ACCOUNT MENTIONED"
+        if self.mention?(tweet, "chibustimes")
           stripped_tweet = self.strip_screen_name(tweet.text)
           normalized_tweet = { :screen_name => tweet.user.screen_name,
                                :text => stripped_tweet }
@@ -23,8 +16,7 @@ class Tweet
   end
 
   def self.reply(tweet)
-    puts "got into Tweet.reply"
-    puts tweet
+    TRest.update(tweet)
   end
 
   private
